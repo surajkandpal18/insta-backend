@@ -78,7 +78,8 @@ router.post(
      });
 
      router.post('/login',[
-         check("email","Please Enter a username").isEmail(),
+         check("email","Please Enter a email").not().isEmpty(),
+         check("email","Please Enter a valid email").isEmail(),
          check("password","Please Enter a password").not().isEmpty()
      ],async(req,res)=>{
          const errors = validationResult(req);

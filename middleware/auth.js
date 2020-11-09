@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 
 const authMe=(req,res,next)=>{
     const token=req.header('token');
+    console.log(token)
     if(!token) return res.status(401).json({msg:"Auth error"});
     
     try{
