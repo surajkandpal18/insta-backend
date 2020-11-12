@@ -62,7 +62,7 @@ router.post(
             };
             jwt.sign(
                 payload,
-                "randomString",
+                process.env.ACCESS_TOKEN_SECRET,
                 (err, token) => {
                     if (err) throw err;
                     res.status(200).json({
@@ -109,7 +109,7 @@ router.post(
                     }
                 };
 
-                jwt.sign(payload,'randomString',(err,token)=>{
+                jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET,(err,token)=>{
                     if (err) throw err;
                     res.status(200).json({
                         token
@@ -127,7 +127,17 @@ router.post(
      router.get("/me", authMe, async (req, res) => {
             try {
                 // request.user is getting fetched from Middleware after token authentication
-                const user = await userModel.findById(req.user.id,'displayName email userName profilePic');
+                const user = await userModel.findById(req.user.id,'displayName email username profilePic');
+                res.json(user);
+            } catch (e) {
+                res.send({ message: "Error in Fetching user" });
+            }
+});
+
+router.get("/someone", authMe, async (req, res) => {
+            try {
+                // request.user is getting fetched from Middleware after token authentication
+                const user = await userModel.findById(req.user.userId,'displayName profilePic');
                 res.json(user);
             } catch (e) {
                 res.send({ message: "Error in Fetching user" });

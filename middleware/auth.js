@@ -6,7 +6,7 @@ const authMe=(req,res,next)=>{
     if(!token) return res.status(401).json({msg:"Auth error"});
     
     try{
-        const decoded=jwt.verify(token,"randomString");
+        const decoded=jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         req.user=decoded.user;
         next();
     }

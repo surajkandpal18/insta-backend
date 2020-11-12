@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
@@ -6,6 +7,8 @@ import Pusher from 'pusher'
 import initiateDB from './dbConfig.js'
 import bodyParser from 'body-parser'
 import user from './routes/user.js'
+
+dotenv.config()
 
 //app config
 const app=express()
